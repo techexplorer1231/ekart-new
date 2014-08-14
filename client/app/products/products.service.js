@@ -1,13 +1,13 @@
 'use strict';
-angular.module('workspaceApp').factory('ProductsResrc', ['ngResource', function(ngResource){
-    return $resource('/notes/:id', null,
-    {
-    	'update':{method:'PUT'}
-    });
-}]).factory('ProductsSrvc', ['ProductsResrc', function(ProductsResrc){
+angular.module('workspaceApp').factory('ProductsSrvc', function(ProductsResrc){
 	return{
 		getProducts: function(){
-			return "Hello"
+			return ProductsResrc.query();
 		}
 	};
-}]);
+}).factory('ProductsResrc', function($resource){
+    return $resource('/api/products/:id', null,
+    {
+    	update: {method:'PUT'}
+    });
+});
